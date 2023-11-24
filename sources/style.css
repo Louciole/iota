@@ -1,0 +1,31 @@
+body{
+    height: 100svh;
+    width: 100vw;
+    margin:0;
+    display: flex;
+}
+
+#toolbox{
+    height: 100%;
+    width: 20%;
+    background: beige;
+}
+
+#website{
+    height: 100%;
+    width: 80%;
+}
+
+#website .btn{
+    padding: 1rem;
+    width: fit-content;
+    background-color: coral;
+    border-radius: 10px;
+    margin: 1rem;
+    cursor: pointer;
+    transition: all 100ms;
+}
+
+#website .btn:hover{
+    background: antiquewhite;
+}
