@@ -12,9 +12,9 @@
 <body>
     <div id="toolbox">
         <h2>Toolbox</h2>
-        <div class="snippet btn" draggable="true" ondragstart="drag"> this is a button snippet</div>
+        <div class="snippet btn" draggable="true" ondragstart="drag(event)"> this is a button snippet</div>
     </div>
-    <div id="website" ondrop="drop" ondragover="allowDrop"></div>
+    <div id="website" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 </body>
 
 </html>
