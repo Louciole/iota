@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iota Playground</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="main.js"></script>
+
+    <script type="module" src="main.js"></script>
 </head>
 
 <body>
     <div id="toolbox">
         <h2>Toolbox</h2>
-        <div class="snippet btn" draggable="true" ondragstart="drag(event)"> this is a button snippet</div>
+        <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> this is a button snippet</div>
     </div>
-    <div id="website" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="website" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
 </body>
 
 </html>
