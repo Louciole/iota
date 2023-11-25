@@ -10,9 +10,58 @@
     <script type="module" src="main.mjs"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
 </head>
+
 <body>
     <div id="flying-menu">
-        <div class="scrollable grid"></div>
+        <div class="props-list">
+            <h2>Properties</h2>
+            <div class="props-header">
+                Hello, world
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-header">
+                Hello, world
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-row">
+                <span class="prop-icon material-symbols-outlined">invert_colors</span>
+                <div class="prop-label">Label</div>
+                <input type="text" class="prop-value" />
+            </div>
+        </div>
     </div>
     <div id="wrapper">
         <header></header>
@@ -20,7 +69,9 @@
             <div id="toolbox">
                 <h2>Toolbox</h2>
                 <div class="scrollable grid">
-                    <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> <div class="icon">&lt;/&gt;</div> Button</div>
+                    <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)">
+                        <div class="icon">&lt;/&gt;</div> Button
+                    </div>
                 </div>
             </div>
             <div id="workspace">
@@ -60,4 +111,5 @@
         </section>
     </div>
 </body>
+
 </html>

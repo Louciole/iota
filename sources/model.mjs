@@ -7,37 +7,37 @@ class Node {
     }
 
     instanciate(key, props = {}) {
-        return new Node(key, {}, this.key)
+        return new Node(key, props, this.key)
     }
 }
 
 
 export function snippet(xml) {
-    /**
-     * @param {Graph} graph
-    */
     return (g, loc) => {
         const dom = new DOMParser().parseFromString(xml, 'text/xml')
 
-        function build(xmlNode, parentKey) {
+        function build(xnode, target) {
             const nodeKey = makeKey()
-            const node = new Node(nodeKey, xmlNode.tagName, {})
-            graph.add(node, parent)
-            for (let child of xmlNode.childNodes) {
-                build(child, nodeKey)
+            const props = {}
+            for (let attr of xnode.attributes) {
+                props[attr.name] = attr.value
             }
-
+            props['tag'] = xnode.tagName.toLowerCase()
+            g.add(props, target)
+            for (let child of xnode.childNodes) {
+                build(child, new Target(nodeKey, Target.INSIDE))
+            }
             return nodeKey
         }
 
-        return build(dom.documentElement, parent)
+        return build(dom.documentElement, loc)
     }
 }
 
-class Target {
-    INSIDE = Symbol('INSIDE')
-    BEFORE = Symbol('BEFORE')
-    AFTER = Symbol('AFTER')
+export class Target {
+    static INSIDE = 'INSIDE'
+    static BEFORE = 'BEFORE'
+    static AFTER = 'AFTER'
 
     constructor(rel, loc) {
         this.rel = rel
@@ -52,58 +52,65 @@ class Graph {
         this._parentOf = {}
     }
 
-    _insert(node, target) {
+    _insert(target, node) {
         this.nodes[node.key] = node
-        if (target) {
-            switch (target.loc) {
-                case Target.INSIDE: {
-                    if (!this._childrenOf[loc.rel])
-                        this._childrenOf[loc.rel] = []
-                    this._childrenOf[loc.rel].push(node)
-                    this._parentOf[node.key] = loc.rel
-                    break
-                }
+        this._childrenOf[node.key] = []
 
-                case Target.BEFORE: {
-                    const parentKey = this._parentOf[loc.rel]
-                    if (!parent)
-                        throw new Error('No parent')
+        if (!target)
+            return node.key
 
-                    const index = this._childrenOf[parentKey].indexOf(loc.rel)
-                    this._childrenOf[parentKey].splice(index, 0, node)
-                    this._parentOf[node.key] = parentKey
-                    break
-                }
-
-                case Target.AFTER: {
-                    const parentKey = this._parentOf[loc.rel]
-                    if (!parent)
-                        throw new Error('No parent')
-
-                    const index = this._childrenOf[parentKey].indexOf(loc.rel)
-                    this._childrenOf[parentKey].splice(index + 1, 0, node)
-                    this._parentOf[node.key] = parentKey
-                    break
-                }
+        switch (target.loc) {
+            case Target.INSIDE: {
+                if (!this._childrenOf[target.rel])
+                    this._childrenOf[target.rel] = []
+                this._childrenOf[target.rel].push(node.key)
+                this._parentOf[node.key] = target.rel
+                break
             }
+
+            case Target.BEFORE: {
+                const parentKey = this._parentOf[target.rel]
+                if (!parent)
+                    throw new Error('No parent')
+
+                const index = this._childrenOf[parentKey].indexOf(target.rel)
+                this._childrenOf[parentKey].splice(index, 0, node)
+                this._parentOf[node.key] = parentKey
+                break
+            }
+
+            case Target.AFTER: {
+                const parentKey = this._parentOf[target.rel]
+                if (!parent)
+                    throw new Error('No parent')
+
+                const index = this._childrenOf[parentKey].indexOf(target.rel)
+                this._childrenOf[parentKey].splice(index + 1, 0, node)
+                this._parentOf[node.key] = parentKey
+                break
+            }
+
+            default:
+                throw new Error('Unknown target location')
         }
         return node.key
     }
 
-    add(props, loc, protoKey = null) {
-        let key = ""
-        do {
+    add(target, props = {}, proto = null, key = null) {
+        while (!key || this.nodes[key]) {
             key = Math.random().toString(36).substring(7)
-        } while (this.nodes[key])
-
-        const node = protoKey
-            ? this.nodes[protoKey].instanciate(key, props)
-            : new Node(key, props, proto)
-
-        this._insert(node, loc)
-        for (const child in this._childrenOf[protoKey]) {
-            this.add({}, new Target(Target.INSIDE, key), child)
         }
+
+        if (!proto)
+            return this._insert(target, new Node(key, props, null))
+
+        console.group()
+        this._insert(target, this.nodes[proto].instanciate(key, props))
+
+        for (const child of this._childrenOf[proto]) {
+            this.add(new Target(key, Target.INSIDE), {}, child)
+        }
+        console.groupEnd()
 
         return key
     }
@@ -169,6 +176,13 @@ class Graph {
             this.dump(child, indent + 1)
         }
     }
+
+    dumpAll() {
+        for (let [k, v] of Object.entries(this.nodes)) {
+            if (!this.parentOf(k))
+                this.dump(k)
+        }
+    }
 }
 
 class Transaction {
@@ -186,9 +200,9 @@ class Transaction {
         return this
     }
 
-    insert = (proto, target) =>
+    insert = (target, props = {}, proto = null, key = null) =>
         this._dispatch((g) => {
-            const key = g.add(proto, target)
+            key = g.add(target, props, proto, key)
             return (g) => {
                 g.unlink(key)
             }
@@ -210,9 +224,9 @@ class Transaction {
             }
         })
 
-    dump = () =>
+    dump = (key) =>
         this._dispatch((g) => {
-            g.dump()
+            g.dump(key)
             return () => { }
         })
 
@@ -220,7 +234,7 @@ class Transaction {
         if (this._commited)
             throw new Error('Transaction already commited')
         for (const a of this._applies)
-            this._reverts.insert(0, a(this.model._graph))
+            this._reverts.unshift(a(this.model._graph))
         this._commited = true
     }
 
@@ -235,12 +249,15 @@ class Transaction {
 }
 
 export class Model {
-    constructor(_target) {
+    constructor() {
         this._graph = new Graph()
         this._transactions = []
         this._transactionsIndex = 0
     }
 
+    /**
+     * @returns {Transaction}
+     */
     begin() {
         if (this._transactionsIndex !== this._transactions.length)
             this._transactions.splice(this._transactionsIndex)
