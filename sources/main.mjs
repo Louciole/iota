@@ -1,7 +1,7 @@
 import {initTheme} from "./theme.mjs";
 
 const SNIPPETS = {
-    "btn": "<div class='btn'>Magifique bouton</div>"
+    "btn": "<div class='btn selectable'>Magifique bouton</div>"
 }
 const DRAG_GHOST = document.querySelector("#drag-ghost")
 let animationFrameRequested = false
@@ -9,6 +9,7 @@ let animationFrameRequested = false
 
 initTheme()
 initDrag()
+initMenu()
 
 function onDrag(e){
     if (!animationFrameRequested){
@@ -29,6 +30,27 @@ function onDragEnd(e){
 function initDrag(){
     document.addEventListener("drag",  onDrag);
     document.addEventListener("dragend",  onDragEnd);
+}
+
+function initMenu(){
+    const flyingMenu = document.querySelector('#flying-menu')
+
+    document.onclick = function (){
+        console.log("clicked")
+        if (!event.target.classList.contains("selectable")){
+            flyingMenu.style.display="none";
+        }else{
+            console.log("show")
+            flyingMenu.style.display="flex";
+            if(event.clientY+flyingMenu.getBoundingClientRect().height < window.innerHeight){
+                flyingMenu.style.top=event.clientY.toString()+"px";
+                flyingMenu.style.left=event.clientX.toString()+"px";
+            }else{
+                flyingMenu.style.top=(event.clientY-flyingMenu.getBoundingClientRect().height+5).toString()+"px";
+                flyingMenu.style.left=event.clientX.toString()+"px";
+            }
+        }
+    }
 }
 
 function onSnippetDrag(e) {
@@ -52,7 +74,6 @@ function dropSnippet(e) {
     const node = document.createElement('div')
     node.innerHTML = SNIPPETS[snippet]
     e.target.appendChild(node);
-
 }
 
 window.dropSnippet = dropSnippet;
