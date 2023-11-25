@@ -84,7 +84,6 @@ class Graph {
                 }
             }
         }
-        this._parentOf[node.key] = parent
         return node.key
     }
 
@@ -142,13 +141,13 @@ class Graph {
         for (let [k, v] of Object.entries(this.nodes[key].props)) {
             if (props[k]) {
                 props[k].value = v
-                props[k].from = v
+                props[k].from = key
             } else {
                 props[k] = { value: v, from: v }
             }
         }
 
-        return { ...this.dir(this.parentOf(key)), ...this.nodes[key].props }
+        return props
     }
 
     dump(key, indent = 0) {
@@ -175,9 +174,9 @@ class Transaction {
         return this
     }
 
-    insert = (proto, target, loc) =>
+    insert = (proto, target) =>
         this._dispatch((g) => {
-            const key = g.add(proto, target, loc)
+            const key = g.add(proto, target)
             return (g) => {
                 g.unlink(key)
             }
@@ -244,7 +243,7 @@ export class Model {
         this._transactions[--this._transactionsIndex].rollback()
     }
 
-    hasUndo() {
+    canUndo() {
         return this._transactionsIndex > 0
     }
 
@@ -254,7 +253,7 @@ export class Model {
         this._transactions[this._transactionsIndex++].commit()
     }
 
-    hasRedo() {
+    canRedo() {
         return this._transactionsIndex < this._transactions.length
     }
 }
