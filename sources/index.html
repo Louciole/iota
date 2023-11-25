@@ -9,14 +9,35 @@
     <link rel="stylesheet" href="./style.css">
     <script type="module" src="main.mjs"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.typekit.net/jkk0hci.css">
 </head>
-
 <body>
-    <div id="toolbox">
-        <h2>Toolbox</h2>
-        <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> this is a button snippet</div>
+    <div id="edit-element" class="flying-menu">
+        <div class="scrollable"></div>
     </div>
-    <div id="website" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
+    <div id="wrapper">
+        <header>iota editor</header>
+        <section id="body-wrapper">
+            <div id="toolbox">
+                <h2>Toolbox</h2>
+                <div class="scrollable"></div>
+                <!--<div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> this is a button snippet</div>-->
+            </div>
+            <div id="workspace">
+                <div id="website-toolbar"></div>
+                <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
+            </div>
+            <div id="drag-ghost">
+                <div class="letter">
+                    A
+                </div>
+                <div class="zoom-icon">
+                    <div class="line primary"></div>
+                    <div class="line secondary"></div>
+                    <div class="line primary"></div>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
-
 </html>
