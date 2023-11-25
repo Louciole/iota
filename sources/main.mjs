@@ -12,11 +12,18 @@ initDrag()
 initMenu()
 
 function onDrag(e){
+    //get event traget
+    if (event.target){
+
+    }
+    //get event traget
+    //get event traget
+    //get event traget
     if (!animationFrameRequested){
         animationFrameRequested = true
         requestAnimationFrame(   ()=> {
                 DRAG_GHOST.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
-                console.warn(e.clientX,e.clientY)
+                console.log(e.clientX,e.clientY)
                 animationFrameRequested = false
             }
         )

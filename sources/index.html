@@ -12,19 +12,40 @@
 </head>
 <body>
     <div id="flying-menu">
-        <div class="scrollable"></div>
+        <div class="scrollable grid"></div>
     </div>
     <div id="wrapper">
         <header></header>
         <section id="body-wrapper">
             <div id="toolbox">
                 <h2>Toolbox</h2>
-                <div class="scrollable"></div>
-                <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> this is a button snippet</div>
+                <div class="scrollable grid">
+                    <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)"> <div class="icon">&lt;/&gt;</div> Button</div>
+                </div>
             </div>
             <div id="workspace">
-                <div id="website-toolbar"></div>
-                <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
+                <div id="website-toolbar">
+                    <div class="tools">
+                        <div class="btn">SAVE</div>
+                        <div class="tool">
+                            <span class="material-symbols-outlined">undo</span>
+                        </div>
+                        <div class="tool">
+                            <span class="material-symbols-outlined">redo</span>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h1>Page-Test</h1>
+                        <h2>site 1</h2>
+                    </div>
+                    <div class="tools right">
+
+                    </div>
+                </div>
+                <div id="viewport-wrapper">
+                    <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
+                    <div id="viewport-overlay"></div>
+                </div>
             </div>
             <div id="drag-ghost">
                 <div class="letter">
