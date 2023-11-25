@@ -1,10 +1,13 @@
 class Node {
-    constructor(key, props, proto = null, root = false) {
+    constructor(key, props, proto = null) {
         this.key = key
         this.props = props
         this.proto = proto
-        this.root = root
         this.alive = true
+    }
+
+    instanciate(key, props = {}) {
+        return new Node(key, {}, this.key)
     }
 }
 
@@ -87,13 +90,22 @@ class Graph {
         return node.key
     }
 
-    add(props, loc, proto = null) {
+    add(props, loc, protoKey = null) {
         let key = ""
         do {
             key = Math.random().toString(36).substring(7)
         } while (this.nodes[key])
-        const node = new Node(key, props, proto)
-        return this._insert(node, loc)
+
+        const node = protoKey
+            ? this.nodes[protoKey].instanciate(key, props)
+            : new Node(key, props, proto)
+
+        this._insert(node, loc)
+        for (const child in this._childrenOf[protoKey]) {
+            this.add({}, new Target(Target.INSIDE, key), child)
+        }
+
+        return key
     }
 
     unlink(key) {
