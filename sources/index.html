@@ -7,13 +7,14 @@
     <title>iota Playground</title>
     <link rel="icon" href="./assets/logo_iota.ico">
     <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./utilities.css">
     <link rel="stylesheet" href="./style.css">
     <script type="module" src="main.mjs"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="flying-menu">
+    <div id="flying-menu" class="ui-border">
         <div class="props-list">
             <h2>Properties</h2>
             <div class="props-header">
@@ -65,9 +66,8 @@
         </div>
     </div>
     <div id="wrapper">
-        <header></header>
         <section id="body-wrapper">
-            <div id="toolbox">
+            <div id="toolbox" class="ui-sep-after">
                 <h2>Toolbox</h2>
                 <div class="scrollable grid">
                     <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)">
@@ -76,13 +76,13 @@
                 </div>
             </div>
             <div id="workspace">
-                <div id="website-toolbar">
+                <div id="website-toolbar" class="ui-sep-bottom">
                     <div class="tools">
-                        <div class="btn">SAVE</div>
-                        <div class="tool">
+                        <div class="ui-button ui-button-accent">SAVE</div>
+                        <div class="ui-button">
                             <span class="material-symbols-outlined">undo</span>
                         </div>
-                        <div class="tool">
+                        <div class="ui-button">
                             <span class="material-symbols-outlined">redo</span>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                         <h2>site 1</h2>
                     </div>
                     <div class="tools right">
-
+                        <div class="ui-button ui-button-accent">SAVE</div>
                     </div>
                 </div>
                 <div id="viewport-wrapper">
@@ -99,10 +99,10 @@
                     <div id="viewport-overlay"></div>
                 </div>
             </div>
-            <div id="drag-ghost">
-                <div class="letter">
-                    A
-                </div>
+            <div id="drag-ghost" class="ui-border ui-shadow">
+                <span class="material-symbols-outlined letter">
+                    code
+                </span>
                 <div class="zoom-icon">
                     <div class="line primary"></div>
                     <div class="line secondary"></div>
