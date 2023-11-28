@@ -8,9 +8,10 @@
     <link rel="icon" href="./assets/logo_iota.ico">
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./utilities.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="common.css">
     <script type="module" src="main.mjs"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.typekit.net/orw5qnu.css">
 </head>
 
 <body>
@@ -65,52 +66,48 @@
             </div>
         </div>
     </div>
-    <div id="wrapper">
-        <section id="body-wrapper">
-            <div id="toolbox" class="ui-sep-after">
-                <h2>Toolbox</h2>
-                <div class="scrollable grid">
-                    <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)">
-                        <div class="icon">&lt;/&gt;</div> Button
-                    </div>
+    <header>
+        <div class="tools">
+            <div id="logo">iota</div>
+        </div>
+        <div class="title">
+            <h1>Page-Test</h1>
+            <h2>site 1</h2>
+        </div>
+        <div class="tools right">
+            <div class="btn primary">SAVE</div>
+            <div class="tool">
+                <span class="material-symbols-outlined">undo</span>
+            </div>
+            <div class="tool">
+                <span class="material-symbols-outlined">redo</span>
+            </div>
+        </div>
+    </header>
+    <section id="workspace">
+        <div id="toolbox">
+            <h3>Toolbox</h3>
+            <div class="scrollable grid">
+                <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)">
+                    <div class="icon">&lt;/&gt;</div> button
                 </div>
             </div>
-            <div id="workspace">
-                <div id="website-toolbar" class="ui-sep-bottom">
-                    <div class="tools">
-                        <div class="ui-button ui-button-accent">SAVE</div>
-                        <div class="ui-button">
-                            <span class="material-symbols-outlined">undo</span>
-                        </div>
-                        <div class="ui-button">
-                            <span class="material-symbols-outlined">redo</span>
-                        </div>
-                    </div>
-                    <div class="title">
-                        <h1>Page-Test</h1>
-                        <h2>site 1</h2>
-                    </div>
-                    <div class="tools right">
-                        <div class="ui-button ui-button-accent">SAVE</div>
-                    </div>
+        </div>
+        <div id="viewport-wrapper">
+            <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
+            <div id="viewport-overlay"></div>
+        </div>
+        <div id="drag-ghost">
+                <div class="letter">
+                    A
                 </div>
-                <div id="viewport-wrapper">
-                    <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>
-                    <div id="viewport-overlay"></div>
-                </div>
+            <div class="zoom-icon">
+                <div class="line primary"></div>
+                <div class="line secondary"></div>
+                <div class="line primary"></div>
             </div>
-            <div id="drag-ghost" class="ui-border ui-shadow">
-                <span class="material-symbols-outlined letter">
-                    code
-                </span>
-                <div class="zoom-icon">
-                    <div class="line primary"></div>
-                    <div class="line secondary"></div>
-                    <div class="line primary"></div>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
 </body>
 
 </html>

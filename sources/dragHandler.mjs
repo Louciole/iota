@@ -112,7 +112,7 @@ function addSnapZone(x, y, mode = 'horizontal', size) {
     //TODO ADD GESTION FIRST ELEMENT LAST ELEMENT
     const SNAP_ZONE = document.createElement("div")
     SNAP_ZONE.classList.add("snap-zone")
-    SNAP_ZONE.innerHTML = '<div class="material-symbols-outlined">add</div>'
+    SNAP_ZONE.innerHTML = '<div>+</div>'
     SNAP_ZONE.classList.add(mode)
     SNAP_ZONE.style.top = `${y}px`
     SNAP_ZONE.style.left = `${x}px`
