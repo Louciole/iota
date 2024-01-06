@@ -162,7 +162,6 @@ header .btn.secondary:hover{
     padding: 0.4rem 0.6rem;
     background: var(--neutral-0);
     border: solid 2px var(--neutral-3);
-    max-width: fit-content;
     font-weight: 700;
     align-items: center;
     line-height: 1.2rem;

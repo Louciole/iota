@@ -1,7 +1,12 @@
 import { convertRemToPixels } from "./utils.mjs";
 
 const SNIPPETS = {
-    "btn": "<div class='btn selectable'>Magifique bouton</div>"
+    "btn": "<button class='selectable'>Magifique bouton</button>",
+    "a": "<a class='selectable'></a>",
+    "p": "<p class='selectable'>Un magnifique paragraphe</p>",
+    "heading": "<h1 class='selectable'>Titre</h1>",
+    "hr": "<hr class='selectable'>",
+    "div": "<div class='selectable'></div>"
 }
 const DRAG_GHOST = document.querySelector("#drag-ghost")
 const DOM_OVERLAY = document.querySelector("#viewport-overlay")
