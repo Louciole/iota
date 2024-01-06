@@ -5,6 +5,7 @@ body.dark-theme {
     --neutral-1: #fff8ef;
     --neutral-2: #ffe8d5;
     --neutral-0: #000;
+    --accent-0: #ff8d3c;
 }
 
 body.light-theme {
@@ -12,6 +13,7 @@ body.light-theme {
     --neutral-1: #fffdf2;
     --neutral-2: #fff6d9;
     --neutral-3: #000;
+    --accent-0: #ff8d3c;
 }
 
 body {
@@ -236,4 +238,35 @@ header .btn.secondary:hover{
     z-index: 2;
     position: relative;
     pointer-events: none;
+}
+
+.snap-zone{
+    background: var(--accent-0);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.snap-zone div{
+    padding: 0.3rem;
+    background: var(--accent-0);
+    color: var(--neutral-0);
+    border-radius: 50%;
+    font-size: 1.6rem;
+    height: 1.8rem;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+.snap-zone.vertical{
+    width: 3px;
+}
+
+.snap-zone.horizontal{
+    height: 3px;
 }

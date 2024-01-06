@@ -51,11 +51,11 @@ function onDrag(e) {
                 console.log("3 - ADD INSIDE")
             } else if (e.clientY <= HALF_HEIGHT) {
                 // sinon si premiere moitié
-                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.firstElementChild.getBoundingClientRect())
+                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
                 console.log("4 - ADD INSIDE FIRST")
             } else if (e.clientY > HALF_HEIGHT) {
                 // sinon si seconde moitié
-                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.lastElementChild.getBoundingClientRect())
+                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
                 console.log("5 - ADD INSIDE LAST")
             }
         } else {
@@ -96,9 +96,7 @@ function dropSnippet(e) {
     e.preventDefault();
 
     const snippet = e.dataTransfer.getData("snippet");
-    const node = document.createElement('div')
-    node.innerHTML = SNIPPETS[snippet]
-    e.target.appendChild(node);
+    e.target.insertAdjacentHTML("beforeend", SNIPPETS[snippet])
 }
 
 function getElementDirection(element) {
