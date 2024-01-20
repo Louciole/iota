@@ -30,52 +30,54 @@ export function initDrag() {
 }
 
 function onDrag(e) {
-    const targeted = document.elementFromPoint(e.clientX, e.clientY)
+    document.body.addEventListener('dragover', e => {
+        const targeted = document.elementFromPoint(e.clientX, e.clientY)
 
-    //si on est au-dessus d'un enfant de viewport
-    if (targeted.closest("#viewport")) {
-        const boundingRect = targeted.getBoundingClientRect()
-        const HALF_HEIGHT = boundingRect.top + (boundingRect.bottom - boundingRect.top) / 2
-        const HALF_WIDTH = boundingRect.left + (boundingRect.right - boundingRect.left) / 2
-        console.log(targeted, boundingRect)
-        const direction = getElementDirection(targeted)
+        //si on est au-dessus d'un enfant de viewport
+        if (targeted.closest("#viewport")) {
+            const boundingRect = targeted.getBoundingClientRect()
+            const HALF_HEIGHT = boundingRect.top + (boundingRect.bottom - boundingRect.top) / 2
+            const HALF_WIDTH = boundingRect.left + (boundingRect.right - boundingRect.left) / 2
+            console.log(targeted, boundingRect)
+            const direction = getElementDirection(targeted)
 
-        if (direction === "horizontal") { //TODO  add a dict associating a direction with min max ... coordonates to have only one logic
-            // si proche bordure bas
-            console.log(e.clientY, PROXIMITY_THRESHOLD, boundingRect, targeted)
-            if (e.clientY + PROXIMITY_THRESHOLD >= boundingRect.bottom) {
-                addSnapZone(boundingRect.x, boundingRect.bottom, 'horizontal', boundingRect.width)
-                console.log("1 - ADD AFTER")
-            } else if (e.clientY - PROXIMITY_THRESHOLD <= boundingRect.top) {
-                // sinon proche bordure haut
-                addSnapZone(boundingRect.x, boundingRect.top, 'horizontal', boundingRect.width)
-                console.log("2 - ADD BEFORE")
-            } else if (targeted.childElementCount === 0) {
-                // si vide
-                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', boundingRect.width)
-                console.log("3 - ADD INSIDE")
-            } else if (e.clientY <= HALF_HEIGHT) {
-                // sinon si premiere moitié
-                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
-                console.log("4 - ADD INSIDE FIRST")
-            } else if (e.clientY > HALF_HEIGHT) {
-                // sinon si seconde moitié
-                addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
-                console.log("5 - ADD INSIDE LAST")
+            if (direction === "horizontal") { //TODO  add a dict associating a direction with min max ... coordonates to have only one logic
+                // si proche bordure bas
+                console.log(e.clientY, PROXIMITY_THRESHOLD, boundingRect, targeted)
+                if (e.clientY + PROXIMITY_THRESHOLD >= boundingRect.bottom) {
+                    addSnapZone(boundingRect.x, boundingRect.bottom, 'horizontal', boundingRect.width)
+                    console.log("1 - ADD AFTER")
+                } else if (e.clientY - PROXIMITY_THRESHOLD <= boundingRect.top) {
+                    // sinon proche bordure haut
+                    addSnapZone(boundingRect.x, boundingRect.top, 'horizontal', boundingRect.width)
+                    console.log("2 - ADD BEFORE")
+                } else if (targeted.childElementCount === 0) {
+                    // si vide
+                    addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', boundingRect.width)
+                    console.log("3 - ADD INSIDE")
+                } else if (e.clientY <= HALF_HEIGHT) {
+                    // sinon si premiere moitié
+                    addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
+                    console.log("4 - ADD INSIDE FIRST")
+                } else if (e.clientY > HALF_HEIGHT) {
+                    // sinon si seconde moitié
+                    addSnapZone(boundingRect.x, HALF_HEIGHT, 'horizontal', targeted.getBoundingClientRect().width)
+                    console.log("5 - ADD INSIDE LAST")
+                }
+            } else {
+                //vertical
             }
-        } else {
-            //vertical
         }
-    }
 
-    if (!animationFrameRequested) {
-        animationFrameRequested = true
-        requestAnimationFrame(() => {
-            DRAG_GHOST.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
-            animationFrameRequested = false
+        if (!animationFrameRequested) {
+            animationFrameRequested = true
+            requestAnimationFrame(() => {
+                    DRAG_GHOST.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+                    animationFrameRequested = false
+                }
+            )
         }
-        )
-    }
+    }, {once: true});// is it stupid ? yes -- is it useless also yes but it's made to get cursor coordinates on firefox because they don't want to fix this bug since 2009
 }
 
 function onDragEnd(e) {
