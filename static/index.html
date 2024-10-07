@@ -19,49 +19,47 @@
         <div class="props-list">
             <h2>Properties</h2>
             <div class="props-header">
-                Hello, world
+                General
             </div>
             <div class="props-row">
                 <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
-                <input type="text" class="prop-value" />
+                <div class="prop-label">Background</div>
+                <input type="text" class="prop-value" onblur="propertyChanged(event)"/>
             </div>
             <div class="props-row">
                 <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
-                <input type="text" class="prop-value" />
-            </div>
-            <div class="props-row">
-                <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
-                <input type="text" class="prop-value" />
-            </div>
-            <div class="props-row">
-                <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
+                <div class="prop-label">Background-image</div>
                 <input type="text" class="prop-value" />
             </div>
             <div class="props-header">
-                Hello, world
+                Borders
+            </div>
+            <div class="props-row">
+                <div class="prop-label">Border-radius</div>
+                <input type="text" class="prop-value" onblur="propertyChanged(event.currentTarget.value,'radius')" value="${global.state.currentSelection.radius}"/>
+            </div>
+            <div class="props-row">
+                <div class="prop-label">Border</div>
+                <input type="text" class="prop-value" />
+            </div>
+            <div class="props-header">
+                Text
             </div>
             <div class="props-row">
                 <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
+                <div class="prop-label">Color</div>
                 <input type="text" class="prop-value" />
             </div>
             <div class="props-row">
-                <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
+                <div class="prop-label">Font-size</div>
                 <input type="text" class="prop-value" />
             </div>
             <div class="props-row">
-                <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
+                <div class="prop-label">Font-weight</div>
                 <input type="text" class="prop-value" />
             </div>
             <div class="props-row">
-                <span class="prop-icon material-symbols-outlined">invert_colors</span>
-                <div class="prop-label">Label</div>
+                <div class="prop-label">Font-family</div>
                 <input type="text" class="prop-value" />
             </div>
         </div>
@@ -86,27 +84,11 @@
     </header>
     <section id="workspace">
         <div id="toolbox">
-            <h3>Toolbox</h3>
-            <div class="scrollable grid">
-                <div class="snippet btn" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> button
-                </div>
-                <div class="snippet heading" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> Title
-                </div>
-                <div class="snippet div" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> div
-                </div>
-                <div class="snippet hr" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> division
-                </div>
-                <div class="snippet p" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> Text
-                </div>
-                <div class="snippet a" draggable="true" ondragstart="onSnippetDrag(event)">
-                    <div class="icon">&lt;/&gt;</div> Link
-                </div>
+            <div class="toolbox-menu">
+                <h3 class="selected" onclick="goTo('toolbox-content','toolbox-snippets',{event:event})">Snippets</h3>
+                <h3 onclick="goTo('toolbox-content','toolbox-elements',{event:event})">Elements</h3>
             </div>
+            <div id="toolbox-content"></div>
         </div>
         <div id="viewport-wrapper">
             <div id="viewport" ondrop="dropSnippet(event)" ondragover="allowSnippetDrop(event)"></div>

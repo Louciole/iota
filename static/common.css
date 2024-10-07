@@ -10,8 +10,8 @@ body.dark-theme {
 
 body.light-theme {
     --neutral-0: #fff;
-    --neutral-1: #fffdf2;
-    --neutral-2: #fff6d9;
+    --neutral-1: #ffffff;
+    --neutral-2: #fffbed;
     --neutral-3: #000;
     --accent-0: #ff8d3c;
 }
@@ -135,11 +135,10 @@ header .btn.secondary:hover{
     gap: 10px;
 }
 
-#toolbox{
-    width: fit-content;
+#toolbox {
+    width: calc(100%*(4 / 16));
     height: 100%;
     background: var(--neutral-1);
-    padding: 0 1.2rem;
     border-right: solid 2px var(--neutral-3);
 }
 
@@ -227,8 +226,9 @@ header .btn.secondary:hover{
 }
 
 #viewport-wrapper {
-    flex-grow: 1;
     overflow: hidden;
+    height: 100%;
+    width: 100%;
 }
 
 #viewport-overlay {
@@ -268,4 +268,41 @@ header .btn.secondary:hover{
 
 .snap-zone.horizontal{
     height: 3px;
+}
+
+.props-list h2{
+    text-align: center;
+}
+
+.props-header{
+    font-weight: bold;
+}
+
+.props-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.toolbox-menu{
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.toolbox-menu h3 {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.toolbox-menu :first-child{
+    border-right: 2px solid var(--neutral-3);
+}
+
+.toolbox-menu :not(.selected){
+    border-bottom: 2px solid var(--neutral-3);
+}
+
+div#toolbox-content {
+    padding: 0 1.2rem;
 }

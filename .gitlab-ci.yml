@@ -3,7 +3,7 @@ image: alpine:latest
 pages:
   stage: deploy
   script:
-    - cp -r sources public
+    - cp -r static public
   artifacts:
     paths:
       - public
