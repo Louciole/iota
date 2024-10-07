@@ -25,7 +25,7 @@ export function loadTemplate(template, target=undefined, flex= undefined, async)
         }
     };
 
-    xhr( '/static/templates/'.concat(template), effect,"GET", async)
+    xhr( './templates/'.concat(template), effect,"GET", async)
 }
 window.loadTemplate = loadTemplate
 
@@ -36,7 +36,7 @@ function fillWith(template, list){
     if(templates[template]){
         request={"responseText":templates[template]}
     }else{
-        request = xhr( '/static/templates/'.concat(template,".html"), undefined, "GET", false)
+        request = xhr( './templates/'.concat(template,".html"), undefined, "GET", false)
         // console.log("adding to cache",templates, template)
         templates[template] = request.responseText
     }
